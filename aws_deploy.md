@@ -70,6 +70,7 @@ ssh 유저명 접근주소
 
 * shell에서 개인키가 있는 폴더로 이동한다. (~/.ssh)  
 * chmod 명령어로 개인키 접근 권한을 소유자에 한정한다.  
+
 > **chmod: 파일/폴더 권한정보 수정**  
 > 
 > ```shell
@@ -87,6 +88,7 @@ ssh 유저명 접근주소
 > * `-i` 는 권한 요청에 사용할 개인키를 선택하는 옵션이다. 이 옵션이 없을 경우, `~./ssh` 폴더에 있는 `id_rsa` 파일을 사용하게 된다. 
 
 * 접근하려는 도메인의 지문을 확인한다. (옵션)  
+
 > ```
 > $ ssh -i ./EC2-Deploy-Keypair.pem ubuntu@ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com
 The authenticity of host 'ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com (13.125.9.213)' can't be established.
@@ -94,6 +96,7 @@ ECDSA key fingerprint is SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI.
 Are you sure you want to continue connecting (yes/no)?
 ``` 
 브라우저를 통해 접근할 때는 https 인증서를 통해 해당 브라우저가 신뢰할 만한지를 파악할 수 있다. ssh 접근의 경우는 지문을 확인해주어야 한다. 위 콘솔에 나온 지문은 'ECDSA key'임을 기억하자.   
+
 > 
 > **aws cli로 접근하려는 서버의 지문 확인하기**  
 > 
