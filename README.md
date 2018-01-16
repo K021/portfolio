@@ -8,7 +8,7 @@
 
 * [git](./git.md)
 * [html&css](./html&css.md)
-* [javascript](./javascipt.md)
+* [javascript](./javascript.md)
 * [django_basic](./django_basic.md)
 * [aws_deploy](./aws_deploy.md)
 * [docker](docker.md)
