@@ -89,63 +89,63 @@ ssh 유저명 접근주소
 
 * 접근하려는 도메인의 지문을 확인한다. (옵션)  
 
-> ```
-> $ ssh -i ./EC2-Deploy-Keypair.pem ubuntu@ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com
-> The authenticity of host 'ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com (13.125.9.213)' can't be established.
-> ECDSA key fingerprint is SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI.
-> Are you sure you want to continue connecting (yes/no)?
-> ``` 
+	> ```
+	> $ ssh -i ./EC2-Deploy-Keypair.pem ubuntu@ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com
+	> The authenticity of host 'ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com (13.125.9.213)' can't be established.
+	> ECDSA key fingerprint is SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI.
+	> Are you sure you want to continue connecting (yes/no)?
+	> ``` 
 
-브라우저를 통해 접근할 때는 https 인증서를 통해 해당 브라우저가 신뢰할 만한지를 파악할 수 있다. ssh 접근의 경우는 지문을 확인해주어야 한다. 위 콘솔에 나온 지문은 'ECDSA key'임을 기억하자.   
+	브라우저를 통해 접근할 때는 https 인증서를 통해 해당 브라우저가 신뢰할 만한지를 파악할 수 있다. ssh 접근의 경우는 지문을 확인해주어야 한다. 위 콘솔에 나온 지문은 'ECDSA key'임을 기억하자.   
 
-> 
-> **aws cli로 접근하려는 서버의 지문 확인하기**  
-> 
-> * `aws cli` 설치하기: `pip install awscli`  
-> * `aws configure`로 aws 설정파일 만들기  
-> 
-> ```
-> $ aws configure
-> 
-> # 유저를 생성할 때 받은 유저 정보 파일인 .csv 파일 정보를 기록한다.
-> AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
-> AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-> 
-> # aws consle/ 맨 위 '서비스'/ EC2 management console/ 인스턴스/ 설명/ 가용영역 정보
-> # 가용정보 마지막에 붙어있는 'a'는 aws 서울서버의 상세한 위치구분이므로 생략해도 좋다. 
-> Default region name [None]: ap-northeast-2a 
-> # 얘는 그냥 아웃풋 포맷인데, 시키는 대로 json 형식을 설정하자. 
-> Default output format [None]: json 
-> ```
-> 
-> 해당 과정을 완료하면, ~/.aws 폴더가 생긴다. 
-> 
-> * 인스턴스의 지문확인하기  
-> **제한 조건1** : 인스턴스가 pending 상태가 아닌, running 상태여야 한다.  
-> **제한 조건2** : 아래 명령어로 출력되는 정보 중, 지문을 나타내는 `SSH HOST KEY FINGERPRINTS` 섹션은 인스턴스를 처음 부팅한 후에만 사용할 수 있다.  
-> 
-> ```
-> # --instance-id 뒤에는 서비스/EC2/인스턴스/설명 페이지에 있는 '인스턴스 ID' 값을 가져온다. 
-> $ aws ec2 get-console-output --instance-id i-0414722a07ff362ef
-> 
-> ...
-> #############################################################
-> \r\n<14>Oct 26 03:07:56 ec2: 
-> -----BEGIN SSH HOST KEY FINGERPRINTS-----
-> \r\n<14>Oct 26 03:07:56 ec2: 1024 
-> SHA256:CJo818grSh7YXQ5s1a01U8o5pdxZqPmXrvsbbwLmMaw root@ip-172-31-15-11 (DSA)\r\n<14>Oct 26 03:07:56 ec2: 256 
-> SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI root@ip-172-31-15-11 (ECDSA)\r\n<14>Oct 26 03:07:56 ec2: 256 
-> SHA256:ZNcdCizvz5B4hd0lfRsO5KKjbGgS745cl5ZfXFt1yW4 root@ip-172-31-15-11 (ED25519)\r\n<14>Oct 26 03:07:56 ec2: 2048 
-> SHA256:JAATwlC2MCci8qEsyvCnctFwTY2/g1HRkeA+8SVikCA root@ip-172-31-15-11 (RSA)\r\n<14>Oct 26 03:07:56 ec2: 
-> -----END SSH HOST KEY FINGERPRINTS-----
-> \r\n<14>Oct 26 03:07:56 ec2: 
-> #############################################################
-> ...
-> ```
-> 출력되는 네가지 지문 중에서, 'ECDSA key' 방식으로 해싱된 지문이 우리가 찾는 지문이다.  
-> 
-> **한 번 확인한 지문 다시 확인하기**  
-> 한 번 접속한 ssh host의 정보는 ~/.ssh 폴더의 known_hosts 안에 기록되어 있다. 이 정보를 지우게 되면, 처음 접속하는 것과 마찬가지가 되어 `SSH HOST KEY FINGERPRINTS`를 매번 확인할 수 있다.   
+	> 
+	> **aws cli로 접근하려는 서버의 지문 확인하기**  
+	> 
+	> * `aws cli` 설치하기: `pip install awscli`  
+	> * `aws configure`로 aws 설정파일 만들기  
+	> 
+	> ```
+	> $ aws configure
+	> 
+	> # 유저를 생성할 때 받은 유저 정보 파일인 .csv 파일 정보를 기록한다.
+	> AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+	> AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+	> 
+	> # aws consle/ 맨 위 '서비스'/ EC2 management console/ 인스턴스/ 설명/ 가용영역 정보
+	> # 가용정보 마지막에 붙어있는 'a'는 aws 서울서버의 상세한 위치구분이므로 생략해도 좋다. 
+	> Default region name [None]: ap-northeast-2a 
+	> # 얘는 그냥 아웃풋 포맷인데, 시키는 대로 json 형식을 설정하자. 
+	> Default output format [None]: json 
+	> ```
+	> 
+	> 해당 과정을 완료하면, ~/.aws 폴더가 생긴다. 
+	> 
+	> * 인스턴스의 지문확인하기  
+	> **제한 조건1** : 인스턴스가 pending 상태가 아닌, running 상태여야 한다.  
+	> **제한 조건2** : 아래 명령어로 출력되는 정보 중, 지문을 나타내는 `SSH HOST KEY FINGERPRINTS` 섹션은 인스턴스를 처음 부팅한 후에만 사용할 수 있다.  
+	> 
+	> ```
+	> # --instance-id 뒤에는 서비스/EC2/인스턴스/설명 페이지에 있는 '인스턴스 ID' 값을 가져온다. 
+	> $ aws ec2 get-console-output --instance-id i-0414722a07ff362ef
+	> 
+	> ...
+	> #############################################################
+	> \r\n<14>Oct 26 03:07:56 ec2: 
+	> -----BEGIN SSH HOST KEY FINGERPRINTS-----
+	> \r\n<14>Oct 26 03:07:56 ec2: 1024 
+	> SHA256:CJo818grSh7YXQ5s1a01U8o5pdxZqPmXrvsbbwLmMaw root@ip-172-31-15-11 (DSA)\r\n<14>Oct 26 03:07:56 ec2: 256 
+	> SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI root@ip-172-31-15-11 (ECDSA)\r\n<14>Oct 26 03:07:56 ec2: 256 
+	> SHA256:ZNcdCizvz5B4hd0lfRsO5KKjbGgS745cl5ZfXFt1yW4 root@ip-172-31-15-11 (ED25519)\r\n<14>Oct 26 03:07:56 ec2: 2048 
+	> SHA256:JAATwlC2MCci8qEsyvCnctFwTY2/g1HRkeA+8SVikCA root@ip-172-31-15-11 (RSA)\r\n<14>Oct 26 03:07:56 ec2: 
+	> -----END SSH HOST KEY FINGERPRINTS-----
+	> \r\n<14>Oct 26 03:07:56 ec2: 
+	> #############################################################
+	> ...
+	> ```
+	> 출력되는 네가지 지문 중에서, 'ECDSA key' 방식으로 해싱된 지문이 우리가 찾는 지문이다.  
+	> 
+	> **한 번 확인한 지문 다시 확인하기**  
+	> 한 번 접속한 ssh host의 정보는 ~/.ssh 폴더의 known_hosts 안에 기록되어 있다. 이 정보를 지우게 되면, 처음 접속하는 것과 마찬가지가 되어 `SSH HOST KEY FINGERPRINTS`를 매번 확인할 수 있다.   
 
 
 ## 리눅스 인스턴스 기본 설정하기
@@ -332,55 +332,55 @@ s3는 서버 인스턴스를 따로 생성할 필요가 없다. 한 곳에 뭉�
 * `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_STORAGE_BUCKET_NAME`
 	
 	> ```python
-> # Config paths
-> CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
-> with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt') as f:
-> 	config_secret_common_str = f.read()
-> 	config_secret_common = json.loads(config_secret_common_str)
-> 
-> # AWS
-> AWS = config_secret_common['AWS']
-> AWS_ACCESS_KEY_ID = AWS['AWS_ACCESS_KEY_ID']
-> AWS_SECRET_ACCESS_KEY = AWS['AWS_SECRET_ACCESS_KEY']
-> AWS_STORAGE_BUCKET_NAME = AWS['AWS_STORAGE_BUCKET_NAME']
-> ```
+	> # Config paths
+	> CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+	> with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt') as f:
+	> 	config_secret_common_str = f.read()
+	> 	config_secret_common = json.loads(config_secret_common_str)
+	> 
+	> # AWS
+	> AWS = config_secret_common['AWS']
+	> AWS_ACCESS_KEY_ID = AWS['AWS_ACCESS_KEY_ID']
+	> AWS_SECRET_ACCESS_KEY = AWS['AWS_SECRET_ACCESS_KEY']
+	> AWS_STORAGE_BUCKET_NAME = AWS['AWS_STORAGE_BUCKET_NAME']
+	> ```
 
 * FileStorage
 
 	> **S3 File Storage 적용의 기본적인 형태**
-> 
-> ```
-> DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-> STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-> ```
-> 마지막 `S3Boto3Storage`은 field의 `upload to`옵션의 이름으로 그냥 폴더를 만들어 버린다. static file과 media file을 구분해서 저장하고 싶다면, `S3Boto3Storage`을 상속하는 Storage 클래스를 만들어야 한다. 
-> 
-> **S3 File Storage 클래스 커스텀**
-> 
-> ```python
-> (storages.py)
-> from django.conf import settings
-> from storages.backends.s3boto3 import S3Boto3Storage
-> 
-> class StaticStorage(S3Boto3Storage):
->     location = settings.STATICFILES_LOCATION
-> 
-> class MediaStorage(S3Boto3Storage):
->     location = settings.MEDIAFILES_LOCATION
-> 
-> (settings)
-> # AWS storage
-> # S3에 저장되는 폴더 이름을 결정한다. 
-> STATICFILES_LOCATION = 'static'
-> MEDIAFILES_LOCATION = 'media'
-> 
-> # S3 FileStorage
-> DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
-> STATICFILES_STORAGE = 'config.storages.StaticStorage'
-> ```
-> * 이제 미디어 파일을 업로드 하거나, collectstatic을 하면 S3 bucket에 저장된다.  
-> 스태틱 파일 참조나, url로 미디어 파일을 참조하는 것도 전부 이전처럼 된다.  
-> * 스태틱 파일과 미디어 파일은 S3 콘솔에서 확인할 수 있다.
+	> 
+	> ```
+	> DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+	> STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+	> ```
+	> 마지막 `S3Boto3Storage`은 field의 `upload to`옵션의 이름으로 그냥 폴더를 만들어 버린다. static file과 media file을 구분해서 저장하고 싶다면, `S3Boto3Storage`을 상속하는 Storage 클래스를 만들어야 한다. 
+	> 
+	> **S3 File Storage 클래스 커스텀**
+	> 
+	> ```python
+	> (storages.py)
+	> from django.conf import settings
+	> from storages.backends.s3boto3 import S3Boto3Storage
+	> 
+	> class StaticStorage(S3Boto3Storage):
+	>     location = settings.STATICFILES_LOCATION
+	> 
+	> class MediaStorage(S3Boto3Storage):
+	>     location = settings.MEDIAFILES_LOCATION
+	> 
+	> (settings)
+	> # AWS storage
+	> # S3에 저장되는 폴더 이름을 결정한다. 
+	> STATICFILES_LOCATION = 'static'
+	> MEDIAFILES_LOCATION = 'media'
+	> 
+	> # S3 FileStorage
+	> DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+	> STATICFILES_STORAGE = 'config.storages.StaticStorage'
+	> ```
+	> * 이제 미디어 파일을 업로드 하거나, collectstatic을 하면 S3 bucket에 저장된다.  
+	> 스태틱 파일 참조나, url로 미디어 파일을 참조하는 것도 전부 이전처럼 된다.  
+	> * 스태틱 파일과 미디어 파일은 S3 콘솔에서 확인할 수 있다.
 
 ### 4. settings 모듈 분리하기. local, debug, deploy
 * **local** db: 빠른 개발용으로 인터넷이 필요 없고 간단한 sqlite3를 사용한다. 
@@ -400,12 +400,12 @@ s3는 서버 인스턴스를 따로 생성할 필요가 없다. 한 곳에 뭉�
 * uwsgi 실행 오류
 
 	> uwsgi 실행 오류가 나면, 창에 다음과 같이 뜬다.  
-> 
-> ```
-> (browser)
-> 502 Bad Gateway nginx/1.12.1
-> ```
-> 이는 nginx 까지는 잘 실행되었다는 의미로 uwsgi 에서 오류가 난 것이다. uwsgi 실행 오류는 nginx 로그에서 확인할 수 있다. 
+	> 
+	> ```
+	> (browser)
+	> 502 Bad Gateway nginx/1.12.1
+	> ```
+	> 이는 nginx 까지는 잘 실행되었다는 의미로 uwsgi 에서 오류가 난 것이다. uwsgi 실행 오류는 nginx 로그에서 확인할 수 있다. 
 
 * 파이썬 기본 설정 파일 `.idea`
 
