@@ -91,10 +91,11 @@ ssh 유저명 접근주소
 
 > ```
 > $ ssh -i ./EC2-Deploy-Keypair.pem ubuntu@ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com
-The authenticity of host 'ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com (13.125.9.213)' can't be established.
-ECDSA key fingerprint is SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI.
-Are you sure you want to continue connecting (yes/no)?
-``` 
+> The authenticity of host 'ec2-13-125-9-213.ap-northeast-2.compute.amazonaws.com (13.125.9.213)' can't be established.
+> ECDSA key fingerprint is SHA256:2flCPgqxuYAKqBSGz5a85M8Q3LhZ70sqCPepvO4wrTI.
+> Are you sure you want to continue connecting (yes/no)?
+> ``` 
+
 브라우저를 통해 접근할 때는 https 인증서를 통해 해당 브라우저가 신뢰할 만한지를 파악할 수 있다. ssh 접근의 경우는 지문을 확인해주어야 한다. 위 콘솔에 나온 지문은 'ECDSA key'임을 기억하자.   
 
 > 
