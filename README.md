@@ -6,7 +6,7 @@
 
 - [패스트캠퍼스 팀 프로젝트: Audmix Project](./team-project-soundhub-pub.md)
 - [(주)피디젠 홈페이지](./pdxenhomepage-pub.md)
-- [사진 블로그]()
+- [사진 블로그: Instagram Project](./instagram-pj-pub.md)
 - [크롤러: 웹툰, 유튜브, teachable cite]()
 - [Organized Random Team Genderator]()
 - [Search Bible Online]()
