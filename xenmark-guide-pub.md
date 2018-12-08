@@ -247,7 +247,7 @@
 ## 1. pdxen.com 로그인, 에디터 페이지 접속
 
 1. pdxen.com 오른쪽 상단 `Log in` 버튼 클릭 또는 `pdxen.com/login/` 접속
-2. 위의 master 계정으로 로그인
+2. master 계정으로 로그인
 3. 오른쪽 상단의 `Editor` 버튼 클릭 또는 `pdxen.com/editor/`접속
 
 ### 에디터 페이지 구성
@@ -269,7 +269,7 @@
 
 ##### xenmark file upload
 - xenmark로 작성된 text file을 업로드한다. 
-- 반드시 `.txt` 파일이어야 하고, `utf-8`로 인코딩된 문서여야 한다. [참조: xenmark 문서 작성 또는 파일 업로드](#xenmark-file-upload)
+- 반드시 `.txt` 파일이어야 하고, `utf-8`로 인코딩된 문서여야 한다. [참조: xenmark 문서 작성 또는 파일 업로드](#xenmark-문서-작성-또는-파일-업로드)
 - '내용' 부분이 입력되었을 경우, 추가적인 업로드가 필요하지 않다. 내용과 파일 업로드 중 하나를 생략할 수 있다.
 
 ##### image file upload
@@ -323,7 +323,7 @@ Category/Sub-category 를 선택하면, 해당 카테고리의 해당 탭 내에
 
 ![](img/xenmark-guide/editor-guide-3.png)
 
-<a id="xenmark-file-upload"></a>
+<a id="xenmark-문서-작성-또는-파일-업로드"></a>
 
 
 ## 4. xenmark 문서 작성 또는 파일 업로드
