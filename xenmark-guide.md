@@ -1,5 +1,4 @@
 
-<h1 class="header"><span>Xenmark Guide</span></h1>
 
 # Xenmark language
 
@@ -246,8 +245,6 @@
 
 
 ## 1. pdxen.com 로그인, 에디터 페이지 접속
-> ID: `pdxen.ask@gmail.com`
-> PW: `PdxenAdmin762!`
 
 1. pdxen.com 오른쪽 상단 `Log in` 버튼 클릭 또는 `pdxen.com/login/` 접속
 2. 위의 master 계정으로 로그인
