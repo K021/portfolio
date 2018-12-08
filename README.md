@@ -4,8 +4,8 @@
 
 ## 프로젝트 안내서
 
-- [패스트캠퍼스 팀 프로젝트: Audmix Project](./team-project-soundhub.md)
-- [(주)피디젠 홈페이지](./pdxenhomepage.md)
+- [패스트캠퍼스 팀 프로젝트: Audmix Project](./team-project-soundhub-pub.md)
+- [(주)피디젠 홈페이지](./pdxenhomepage-pub.md)
 - [사진 블로그]()
 - [크롤러: 웹툰, 유튜브, teachable cite]()
 - [Organized Random Team Genderator]()
@@ -28,11 +28,11 @@
 
 ## 주제별 공부한 내용 정리
 
-* [git](./git.md)
-* [html&css](./html&css.md)
-* [javascript](./javascript.md)
-* [django_basic](./django_basic.md)
-* [aws_deploy](./aws_deploy.md)
-* [docker](docker.md)
+* [git](./git-pub.md)
+* [html&css](./html-css-pub.md)
+* [javascript](./javascript-pub.md)
+* [django_basic](./django-basic-pub.md)
+* [aws_deploy](./aws-deploy-pub.md)
+* [docker](docker-pub.md)
 
 ## 알고리즘 공부
