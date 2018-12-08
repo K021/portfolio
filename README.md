@@ -36,3 +36,7 @@
 * [docker](docker-pub.md)
 
 ## 알고리즘 공부
+
+- [2019 KAKAO BLIND RECRUITMENT 2차 시험 진출](https://programmers.co.kr/competitions/79/2019-2nd-kakao-blind-recruitment)
+- [이데일리 Coding Challenge 2018 본선 진출](https://coding.edaily.co.kr/schedule/schedule.php)
+- [2018 Winter Coding - 겨울 스타트업 인턴 프로그램](https://programmers.co.kr/competitions/86/2018%20Winter%20Coding%20겨울%20스타트업%20인턴%20프로그램)
