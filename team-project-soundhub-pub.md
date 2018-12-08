@@ -50,7 +50,7 @@
 
 
 ## 서버
-* AWS ElasticBeanstalk
+* AWS ElasticBeanstalk, S3
 * uwsgi &mdash; Nginx
 
 
