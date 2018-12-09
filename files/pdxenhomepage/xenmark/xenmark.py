@@ -14,14 +14,12 @@ __all__ = (
 
 
 def xenmark_to_html(string):
-    if not type(string) == str:
+    if not isinstance(string, str):
         raise TypeError('input of xenmark_to_html() must be string')
 
     # xenmark string 을 모듈화한다.
     xenmark_module_list = xenmark_modularize(string)
-    html_module_list = []
-    for module in xenmark_module_list:
-        html_module_list.append(module_formatter(module))
+    html_module_list = [module_formatter(module) for module in xenmark_module_list]
     # 모듈 앞 뒤에 와야 하는 태그를 wrapping 해준다.
     for index, module in enumerate(html_module_list):
         html_module_list[index] = f'<div class="paragraph text-justify">\n{module}\n</div>\n'
@@ -37,7 +35,7 @@ def xenmark_modularize(string):
     :param string: xenmark string
     :return: xenmark module list
     """
-    if not type(string) == str:
+    if not isinstance(string, str):
         raise TypeError('input of xenmark_modularize() must be string')
 
     string = string.replace('\r', '')
@@ -51,7 +49,7 @@ def xenmark_modularize(string):
         if value.startswith('\n'):
             module_list[index] = value[1:]
 
-    # 내용 없는 모듈 삭제
+    # 내용 없는 모듈 삭제. 줄바꿈이 네개일 때는 내용 없는 모듈이 생김
     while '' in module_list:
         module_list.remove('')
 
@@ -66,24 +64,23 @@ def module_formatter(xenmark_module):
     :param xenmark_module:
     :return:
     """
-    if not type(xenmark_module) == str:
+    if not isinstance(xenmark_module, str):
         raise TypeError('xenmark_module must be string')
 
     # paragraph 기호인 @ 아래선, 마음대로 줄바꿈을 할 수 있다
     # 그런데 모듈을 줄바꿈 문자를 기준으로 리스트로 분류할 것이기 때문에,
-    # 이 쓸데 없는 개행문자를 전부 없에준다 (공백 한 개로 바꾸어 준다. 줄바꿈은 단어의 전환이므로)
+    # 이 쓸데 없는 개행문자를 전부 없에준다 (공백 한 개로 바꾸어 준다. 줄바꿈은 단락의 전환이므로)
     xenmark_module = PATTERN_REDUNDANT_NEWLINE.sub(' ', xenmark_module)
 
     lines = xenmark_module.split('\n')
-    line_properties = []
+    line_properties = [line_property(line) for line in lines]  # 해당 라인이 header 인지, paragraph 인지 등을 구분
     formatted_lines = []
-    for line in lines:
-        line_properties.append(line_property(line))  # 해당 라인이 header 인지, paragraph 인지 등을 구분
     for index, line in enumerate(lines):
         line_formatted = line_formatter(line)  # 각 라인 타입에 맞추어 html 변환
         # 리스트의 경우에는 바깥에 한 번 더 감싸주어야 한다.
         if line_properties[index] in [ORDERED_LIST, UNORDERED_LIST, TWO_COLUMN_LIST]:
             line_formatted = list_wrapper(line_formatted, index, line_properties)
         formatted_lines.append(line_formatted)
+
     html_module = '\n'.join(formatted_lines)
     return html_module

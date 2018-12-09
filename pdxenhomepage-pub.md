@@ -120,9 +120,8 @@
 <div class="paragraph text-justify">
     <h1 class="contents">가장 큰 제목</h1>
     <h3 class="contents">이것이 리딩입니다. 글의 핵심을 표현하는 부제목이죠.</h3>
-    <p class="contents">이것은 일반 문단입니다. 문단 중간에 <code>하이라이트</code>가 들어갈 수 있습니다. 물론 <a
-            href="http://naver.com">링크</a>도 들어갈 수 있죠. 가독성을 위해 줄바꿈을 한번 해줘도 상관 없습니다. 하지만 두 번은 안 됩니다. 이런 식으로 글을 계속
-        작성하다보면 문단을 나눠야 할 필요가 생깁니다.</p>
+    <p class="contents">이것은 일반 문단입니다. 문단 중간에 <code>하이라이트</code>가 들어갈 수 있습니다. 물론 <a href="http://naver.com">링크</a>도 들어갈 수 있죠. 
+    가독성을 위해 줄바꿈을 한번 해줘도 상관 없습니다. 하지만 두 번은 안 됩니다. 이런 식으로 글을 계속 작성하다보면 문단을 나눠야 할 필요가 생깁니다.</p>
     <p class="contents">그럴때는 이렇게 문단을 나누어 주면 깔끔합니다. 이러한 유전정보를 활용하여 만든 연구를 통해 생명공학은 비약적으로 발전해 나갈 것이다. 그러나 기존의 전임상
         모델에서 탁월한 항암 효과를 보여 임상 시험까지 진입한 치료제의 약 90%가 실제 환자에서 유의한 암 진행의 억제 및 생존 연장을 유도하지 못하는데, 이는 기존에 사용되는 전임상 검증
         시스템에 표적 치료제 개발 시대에 적합한 대안적인 모델이 필요함을 의미한다. 이에 면역 결핍 마우스의 정위적으로 종양조직을 이식하는 모델 확립 및 이를 통한 환자 유래 세포주 및
@@ -209,14 +208,12 @@ xenmark 변환의 시작이 되는 함수. xenmark 문자열을 받아 html 문�
 
 ```python
 def xenmark_to_html(string):
-    if not type(string) == str:
+    if not isinstance(string, str):
         raise TypeError('input of xenmark_to_html() must be string')
 
     # xenmark string 을 모듈화한다.
     xenmark_module_list = xenmark_modularize(string)
-    html_module_list = []
-    for module in xenmark_module_list:
-        html_module_list.append(module_formatter(module))
+    html_module_list = [module_formatter(module) for module in xenmark_module_list]
     # 모듈 앞 뒤에 와야 하는 태그를 wrapping 해준다.
     for index, module in enumerate(html_module_list):
         html_module_list[index] = f'<div class="paragraph text-justify">\n{module}\n</div>\n'
@@ -238,7 +235,7 @@ def xenmark_modularize(string):
     :param string: xenmark string
     :return: xenmark module list
     """
-    if not type(string) == str:
+    if not isinstance(string, str):
         raise TypeError('input of xenmark_modularize() must be string')
 
     string = string.replace('\r', '')
@@ -252,7 +249,7 @@ def xenmark_modularize(string):
         if value.startswith('\n'):
             module_list[index] = value[1:]
 
-    # 내용 없는 모듈 삭제
+    # 내용 없는 모듈 삭제. 줄바꿈이 네개일 때는 내용 없는 모듈이 생김
     while '' in module_list:
         module_list.remove('')
 
@@ -273,25 +270,24 @@ def module_formatter(xenmark_module):
     :param xenmark_module:
     :return:
     """
-    if not type(xenmark_module) == str:
+    if not isinstance(xenmark_module, str):
         raise TypeError('xenmark_module must be string')
 
     # paragraph 기호인 @ 아래선, 마음대로 줄바꿈을 할 수 있다
     # 그런데 모듈을 줄바꿈 문자를 기준으로 리스트로 분류할 것이기 때문에,
-    # 이 쓸데 없는 개행문자를 전부 없에준다 (공백 한 개로 바꾸어 준다. 줄바꿈은 단어의 전환이므로)
+    # 이 쓸데 없는 개행문자를 전부 없에준다 (공백 한 개로 바꾸어 준다. 줄바꿈은 단락의 전환이므로)
     xenmark_module = PATTERN_REDUNDANT_NEWLINE.sub(' ', xenmark_module)
 
     lines = xenmark_module.split('\n')
-    line_properties = []
+    line_properties = [line_property(line) for line in lines]  # 해당 라인이 header 인지, paragraph 인지 등을 구분
     formatted_lines = []
-    for line in lines:
-        line_properties.append(line_property(line))  # 해당 라인이 header 인지, paragraph 인지 등을 구분
     for index, line in enumerate(lines):
         line_formatted = line_formatter(line)  # 각 라인 타입에 맞추어 html 변환
         # 리스트의 경우에는 바깥에 한 번 더 감싸주어야 한다.
         if line_properties[index] in [ORDERED_LIST, UNORDERED_LIST, TWO_COLUMN_LIST]:
             line_formatted = list_wrapper(line_formatted, index, line_properties)
         formatted_lines.append(line_formatted)
+
     html_module = '\n'.join(formatted_lines)
     return html_module
 ```
@@ -368,9 +364,7 @@ def line_formatter(string):
                 '<img class="img-responsive img-mxw8 center-block" ' +
                 f'src="/media/{POST_IMG_UPLOAD_PATH}/{img_name}" alt="">'
             )
-        for line in formatted_list:
-            formatted += line + '\n'
-        formatted = formatted[:-1]
+        formatted = '\n'.join(formatted_list)
     elif prop == BORDER_LINE:
         formatted = f'<hr class="margin4">'
     elif prop == UNORDERED_LIST:

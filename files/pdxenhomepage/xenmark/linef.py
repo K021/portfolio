@@ -91,9 +91,7 @@ def line_formatter(string):
                 '<img class="img-responsive img-mxw8 center-block" ' +
                 f'src="/media/{POST_IMG_UPLOAD_PATH}/{img_name}" alt="">'
             )
-        for line in formatted_list:
-            formatted += line + '\n'
-        formatted = formatted[:-1]
+        formatted = '\n'.join(formatted_list)
     elif prop == BORDER_LINE:
         formatted = f'<hr class="margin4">'
     elif prop == UNORDERED_LIST:
