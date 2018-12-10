@@ -22,8 +22,6 @@ __all__ = (
     'HEADER_3',
     'HEADER_4',
     'PARAGRAPH',
-    'LINK',
-    'HIGHLIGHT',
     'IMAGE',
     'BORDER_LINE',
     'UNORDERED_LIST',
@@ -52,10 +50,11 @@ PATTERN_IMAGE = re.compile(r'\|\((?P<img_name>\S+)\)\|')
 PATTERN_BORDER_LINE = re.compile(r'^[ ]*-{3,}[ \n]*$')
 PATTERN_UNORDERED_LIST = re.compile(r'^[ ]*-[ ]+')
 PATTERN_ORDERED_LIST = re.compile(r'^[ ]*\d+[.][ ]+')
-PATTERN_TWO_COLUMN_LIST = re.compile(r'^\|2-(?P<cn>[120])\|(?!^ \n)')
+PATTERN_TWO_COLUMN_LIST = re.compile(r'^\|2-(?P<cn>[120])\|(?![^ \n])')
 
-# '\n    '을 허용
-# 그 뒤에 #, @, |, -, 공백, 123.공백 중 하나가 오지 않는 경우
+# find pattern like: '123. '
+# '\n    ' is allowed before '123. '
+# '#', '@', '|', '-', ' ', is not allowed before '123. '
 PATTERN_REDUNDANT_NEWLINE = re.compile(r'\n[ ]*(?![#@|\- ]|(\d+[.][ ]+))')
 
 # line properties
@@ -64,15 +63,13 @@ HEADER_2 = 'header_2'
 HEADER_3 = 'header_3'
 HEADER_4 = 'header_4'
 PARAGRAPH = 'paragraph'
-LINK = 'link'
-HIGHLIGHT = 'highlight'
 IMAGE = 'image'
 BORDER_LINE = 'border_line'
 UNORDERED_LIST = 'unordered_list'
 ORDERED_LIST = 'ordered_list'
 TWO_COLUMN_LIST = 'two_column_list'
 
-# column variables
+# column variables in two column list
 COLUMN_NUMBER_1 = '|2-1|'
 COLUMN_NUMBER_2 = '|2-2|'
 COLUMN_END = '|2-0|'

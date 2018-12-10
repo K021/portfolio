@@ -1,37 +1,223 @@
-"""
-This module contains functions that converts xenmark to html on a line basis
-"""
+# Xenmark
 
-from .variables import *
-from post.models import POST_IMG_UPLOAD_PATH
+Xenmark is a markup language, made for non-programmer to make html contents for [Pdxen hompage](http://pdxen.com).
 
-__all__ = (
-    'line_property',
-    'line_formatter',
+## Basic Example
 
-    'link_inspector',
-    'highlight_inspector',
+xenmark is made similer to markdown, and designed to be apt for pdxen-like post. You can see the [user guide](./xenmark-guide-pub.md)
 
-    'is_header_1',
-    'is_header_2',
-    'is_header_3',
-    'is_header_4',
-    'is_paragraph',
-    'is_link',
-    'is_highlight',
-    'is_image',
-    'is_border_line',
-    'is_unordered_list',
-    'is_ordered_list',
-    'is_two_column_list',
+```
+# header 1
+## header 2
+### header 3
+#### header 4
+@ this is paragraph. `highlights` and
+[link](https://link.com) can be included
+and you can press enter.
+---
+	# separate division by enter twice ('\n\n')
+	# this division is called xenmark-module in this project: a xenmark paragraph, which is separated by '\n\n' and becomes a separate division in html
+- unordered list
+- unordered list
+- unordered list
+1. ordered list
+2. ordered list
+3. ordered list
+---
+	# separate division by enter twice ('\n\n')
+|2-1|
+- unordered list
+- unordered list
+- this is called 'two column list'
+|2-2|
+1. ordered list
+2. ordered list
+3. ordered list
+|2-0|
+|(image_file_name.extensions)|
+```
 
-    'list_wrapper',
-    'unordered_list_wrapper',
-    'ordered_list_wrapper',
-    'two_column_list_wrapper',
-)
+this is converted to:
+
+```html
+<div class="paragraph text-justify">
+	<h1 class="contents">header 1</h1>
+	<h2 class="contents">header 2</h2>
+	<h3 class="contents">header 3</h3>
+	<h4 class="contents">header 4</h4>
+		<p class="contents">this is paragraph. <code>highlights</code> and <a href="https://link.com">link</a> can be included and you can press enter.</p>
+	<hr class="margin4">
+</div>
+
+<div class="paragraph text-justify">
+	<ul class="contents">
+		<li>unordered list</li>
+		<li>unordered list</li>
+		<li>unordered list</li>
+	</ul>
+	<ol class="contents">
+		<li>ordered list</li>
+		<li>ordered list</li>
+		<li>ordered list</li>
+	</ol>
+<hr class="margin4">
+</div>
+
+<div class="paragraph text-justify">
+	<div class="paragraph column2-wrapper clearfix text-left">
+		<div class="first-column col-md-6">
+			<ul class="contents">
+				<li>unordered list</li>
+				<li>unordered list</li>
+				<li>this is called 'two column list'</li>
+			</ul>
+		</div>
+		<div class="second-column col-md-6">
+			<ol class="contents">
+				<li>ordered list</li>
+				<li>ordered list</li>
+				<li>ordered list</li>
+			</ol>
+		</div>
+	</div>
+	<img class="img-responsive img-mxw8 center-block" src="/media/post/img/image_file_name.extensions" alt="">
+</div>
+```
+
+## Module Structure
+
+> [Xenmark module source file](files/pdxenhomepage/xenmark)
+
+```
+xenmark/
+	- __init__.py
+	- linef.py		# functions that converts xenmark to html on a line basis
+	- variables.py	# variables like xenmark indicator pattern, namedtuple
+	- xenmark.py  	# main functions that converts on a xenmark-module basis
+```
+
+> xenmark-module: a xenmark paragraph, which is separated by '\n\n' and becomes a separate division in html
+
+- `xenmark.py`: contains main functions
+	- `xenmark_to_html()`: main function
+	- `xenmark_modularize()`: break down into xenmark-module
+	- `module_formatter()`: converts xenmark-module to html using functions from `linef.py`
+- `linef.py`: functions that converts xenmark line to html line
+- `variables.py`: variables like xenmark indicator pattern, namedtuple
 
 
+## Converting Structure
+
+1. divide xenmark string into xenmark-modules (`xenmark.xenmark_modularize()`)
+2. divide xenmark-module into xenmark lines (`xenmark.module_formatter()`)
+3. convert xenmark line to html line (`linef.line_formatter()`)
+    1. detect the line property (`linef.line_property()`)
+    2. convert the line (`linef.line_formatter()`)
+    3. inspect and convert links and highlights (`linef.link_inspector()`, `linef.highlight_inspector()`)
+4. wrap html list with `<ul>` or `<ol>` (`xenmark.module_formatter()`)
+5. wrap html-module with `<div class='paragraph ...'>` (`xenmark.xenmark_to_html()`)
+6. join all html-modules into one string (`xenmark.xenmark_to_html()`)
+
+
+## Xenmark.py
+
+### 1. `xenmark.xenmark_to_html`
+
+Converting process starts from this function. Recives xenmark string, and returns html string.
+
+```python
+def xenmark_to_html(string):
+    if not isinstance(string, str):
+        raise TypeError('input of xenmark_to_html() must be string')
+
+    # break xenmark string into small pieces
+    xenmark_module_list = xenmark_modularize(string)
+    html_module_list = [module_formatter(module) for module in xenmark_module_list]
+    # add wrapping tag
+    for index, module in enumerate(html_module_list):
+        html_module_list[index] = f'<div class="paragraph text-justify">\n{module}\n</div>\n'
+
+    return '\n'.join(html_module_list)
+```
+
+
+### 2. `xenmark.xenmark_modularize`
+
+Receives xenmark string, and returns list of xenmark-module string.
+ 
+```python
+def xenmark_modularize(string):
+    """
+    break xenmark string into xenmark module, by '\n\n' as a separator
+    xenmark module: small pieces of xenmark string which is separated by '\n\n'
+
+    :param string: xenmark string
+    :return: list of xenmark module string
+    """
+    if not isinstance(string, str):
+        raise TypeError('input of xenmark_modularize() must be string')
+
+    string = string.replace('\r', '')
+    string = string.replace('\ufeff', '')  # a plain text made in window starts with '\ufeff'
+
+    # separate each module by '\n\n' as a separator
+    module_list = string.split('\n\n')
+
+    # if the given string contains '\n\n\n', some module starts with '\n'
+    for index, value in enumerate(module_list):
+        if value.startswith('\n'):
+            module_list[index] = value[1:]
+
+    # if the given string contains '\n\n\n\n', black module is made
+    while '' in module_list:
+        module_list.remove('')
+
+    # return refined xenmark modules
+    return module_list
+```
+
+
+### 3. `module_formatter`
+
+Recieves xenmark-module string, and returns converted html-module string.
+
+```python
+def module_formatter(xenmark_module):
+    """
+    convert xenmark module string to html
+
+    :param xenmark_module: xenmark module string
+    :return: html string
+    """
+    if not isinstance(xenmark_module, str):
+        raise TypeError('xenmark_module must be string')
+
+    # after a paragraph indicator, '@' multiple '\n' is allowed, and it is redundant
+    xenmark_module = PATTERN_REDUNDANT_NEWLINE.sub(' ', xenmark_module)
+
+    lines = xenmark_module.split('\n')
+    # get line properties like: header, paragraph, list ...
+    line_properties = [line_property(line) for line in lines]
+    formatted_lines = []
+    for index, line in enumerate(lines):
+        line_formatted = line_formatter(line)  # convert each line into html
+        # if it's list(<li>...</li>), wrapping tags are needed like: <ul>, <ol>
+        if line_properties[index] in [ORDERED_LIST, UNORDERED_LIST, TWO_COLUMN_LIST]:
+            line_formatted = list_wrapper(line_formatted, index, line_properties)
+        formatted_lines.append(line_formatted)
+
+    html_module = '\n'.join(formatted_lines)
+    return html_module
+```
+
+
+## linef.py
+
+### 1. `linef.line_property`
+
+Recieves xenmark line string, and returns its property like: header, paragraph etc.
+
+```python
 def line_property(string):
     """
     Returns property of the given xenmark line
@@ -59,8 +245,13 @@ def line_property(string):
         return ORDERED_LIST
     elif is_two_column_list(string):
         return TWO_COLUMN_LIST
+```
 
+### 2. `linef.line_formatter`
 
+Recieves xenmark line string, and returns hrml line string.
+
+```python
 def line_formatter(string):
     """
     Converts xenmark line to html string
@@ -126,8 +317,11 @@ def line_formatter(string):
     formatted = highlight_inspector(formatted)
 
     return formatted
+```
 
+Inside this function, the following functions are called. Because, like and highlight can be in everywher like in headers and lists etc. These functions inspect the indicator of xenmark-type link and highlight, and convert it.
 
+```python
 def link_inspector(line_formatted):
     """
     Inspect xenmark-type link in the given string and convert it to html
@@ -154,15 +348,20 @@ def highlight_inspector(line_formatted):
             html_highlight = f'<code>{highlight_data.content}</code>'
             line_formatted = line_formatted.replace(highlight_data.xenmark, html_highlight)
     return line_formatted
+```
 
+### 3. functions that inspect line property
 
+The following functions inspect the given string, and returns its content string.
+
+```python
 def is_header_1(string):
     """
     Necessary: line starts with only one #
     Allow: unlimited spaces after #
     Example:
         True: '#', '#title', '#   title'
-        Param string: '# title'
+        Param string: '#  title'
         Return: 'title'
     :param string: xenmark type string
     :return: header content string or None
@@ -399,8 +598,13 @@ def is_two_column_list(string):
     m = PATTERN_TWO_COLUMN_LIST.match(string)
     if m:
         return m.group()
+```
 
+### 4. functions of wrapping list
 
+`linef.line_formatter` function only adds `<li>` tag. We need the following fuctions to add `<ul>` or `<ol>` tags:
+
+```python
 def list_wrapper(line_formatted, index, line_properties):
     """
     add <ul> or <ol> wrapper before or after <li> type html string
@@ -461,3 +665,63 @@ def two_column_list_wrapper(line_formatted):
         line_formatted = '</div>\n</div>'
 
     return line_formatted
+```
+
+## variables.py
+
+### 1. Patterns
+
+Patterns for xenmark indicator.
+
+```python
+# Patterns
+PATTERN_HEADER_1 = re.compile(r'^#(?!#)[ ]*')
+PATTERN_HEADER_2 = re.compile(r'^##(?!#)[ ]*')
+PATTERN_HEADER_3 = re.compile(r'^###(?!#)[ ]*')
+PATTERN_HEADER_4 = re.compile(r'^####(?!#)[ ]*')
+PATTERN_PARAGRAPH = re.compile(r'^@[ ]*')
+PATTERN_LINK = re.compile(r'\[(?P<link_name>.+?)\]\((?P<link_address>.+?)\)')
+PATTERN_HIGHLIGHT = re.compile(r'`(?P<content>.+?)`')
+PATTERN_IMAGE = re.compile(r'\|\((?P<img_name>\S+)\)\|')
+PATTERN_BORDER_LINE = re.compile(r'^[ ]*-{3,}[ \n]*$')
+PATTERN_UNORDERED_LIST = re.compile(r'^[ ]*-[ ]+')
+PATTERN_ORDERED_LIST = re.compile(r'^[ ]*\d+[.][ ]+')
+PATTERN_TWO_COLUMN_LIST = re.compile(r'^\|2-(?P<cn>[120])\|(?![^ \n])')
+
+# find pattern like: '123. '
+# '\n    ' is allowed before '123. '
+# '#', '@', '|', '-', ' ', is not allowed before '123. '
+PATTERN_REDUNDANT_NEWLINE = re.compile(r'\n[ ]*(?![#@|\- ]|(\d+[.][ ]+))')
+```
+
+### 2. line properties, and any other variables.
+
+```python
+# line properties
+HEADER_1 = 'header_1'
+HEADER_2 = 'header_2'
+HEADER_3 = 'header_3'
+HEADER_4 = 'header_4'
+PARAGRAPH = 'paragraph'
+IMAGE = 'image'
+BORDER_LINE = 'border_line'
+UNORDERED_LIST = 'unordered_list'
+ORDERED_LIST = 'ordered_list'
+TWO_COLUMN_LIST = 'two_column_list'
+
+# column variables in two column list
+COLUMN_NUMBER_1 = '|2-1|'
+COLUMN_NUMBER_2 = '|2-2|'
+COLUMN_END = '|2-0|'
+
+
+class LinkData(NamedTuple):
+    xenmark: str
+    name: str
+    address: str
+
+
+class HighlightData(NamedTuple):
+    xenmark: str
+    content: str
+```

@@ -2,6 +2,10 @@
 #### 할 것들
 - [gitbook](https://nachwon.gitbooks.io/soundhub/content/)
 
+## 영문 프로젝트
+
+- [Xenmark: a markup language for Pdxen](./xenmark-en-pub.md)
+
 ## 프로젝트 안내서
 
 - [패스트캠퍼스 팀 프로젝트: Audmix Project](./team-project-soundhub-pub.md)
