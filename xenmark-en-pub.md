@@ -292,31 +292,7 @@ def line_formatter(string):
     formatted = link_inspector(formatted)
     formatted = highlight_inspector(formatted)
 
-    return formatted
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    return formatted  
 ```
 
 Inside this function, the following functions are called. Because, link and highlight can be in everywhere like in headers and lists etc. These functions inspect the indicator of xenmark-type link and highlight, and convert it to html.
