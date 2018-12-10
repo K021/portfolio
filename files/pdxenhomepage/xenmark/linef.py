@@ -68,60 +68,36 @@ def line_formatter(string):
     :param string: xenmark line
     :return: html string or column variable(str)
     """
+    prop = line_property(string)
+    formatted = ''
 
-    def header_1_formatter(string):
-        return f'<h1 class="contents">{is_header_1(string)}</h1>'
-
-    def header_2_formatter(string):
-        return f'<h2 class="contents">{is_header_2(string)}</h2>'
-
-    def header_3_formatter(string):
-        return f'<h3 class="contents">{is_header_3(string)}</h3>'
-
-    def header_4_formatter(string):
-        return f'<h4 class="contents">{is_header_4(string)}</h4>'
-
-    def paragraph_formatter(string):
-        return f'<p class="contents">{is_paragraph(string)}</p>'
-
-    def image_formatter(string):
+    if prop == HEADER_1:
+        formatted = f'<h1 class="contents">{is_header_1(string)}</h1>'
+    elif prop == HEADER_2:
+        formatted = f'<h2 class="contents">{is_header_2(string)}</h2>'
+    elif prop == HEADER_3:
+        formatted = f'<h3 class="contents">{is_header_3(string)}</h3>'
+    elif prop == HEADER_4:
+        formatted = f'<h4 class="contents">{is_header_4(string)}</h4>'
+    elif prop == PARAGRAPH:
+        formatted = f'<p class="contents">{is_paragraph(string)}</p>'
+    elif prop == IMAGE:
         formatted_list = []
         for img_name in is_image(string):
             formatted_list.append(
                 '<img class="img-responsive img-mxw8 center-block" ' +
                 f'src="/media/{POST_IMG_UPLOAD_PATH}/{img_name}" alt="">'
             )
-        return '\n'.join(formatted_list)
+        formatted = '\n'.join(formatted_list)
+    elif prop == BORDER_LINE:
+        formatted = f'<hr class="margin4">'
+    elif prop == UNORDERED_LIST:
+        formatted = f'<li>{is_unordered_list(string)}</li>'
+    elif prop == ORDERED_LIST:
+        formatted = f'<li>{is_ordered_list(string)}</li>'
+    elif prop == TWO_COLUMN_LIST:
+        formatted = is_two_column_list(string)
 
-    def border_line_formatter(string):  # parameter is needed
-        return f'<hr class="margin4">'
-
-    def unordered_list_formatter(string):
-        return f'<li>{is_unordered_list(string)}</li>'
-
-    def ordered_list_formatter(string):
-        return f'<li>{is_ordered_list(string)}</li>'
-
-    def two_column_list_formatter(string):
-        return is_two_column_list(string)
-
-    prop_to_formatter = {
-        HEADER_1: header_1_formatter,
-        HEADER_2: header_2_formatter,
-        HEADER_3: header_3_formatter,
-        HEADER_4: header_4_formatter,
-        PARAGRAPH: paragraph_formatter,
-        IMAGE: image_formatter,
-        BORDER_LINE: border_line_formatter,
-        UNORDERED_LIST: unordered_list_formatter,
-        ORDERED_LIST: ordered_list_formatter,
-        TWO_COLUMN_LIST: two_column_list_formatter,
-        None: lambda x: '',  # for exceptions: line_property() may return None.
-    }
-
-    prop = line_property(string)
-
-    formatted = prop_to_formatter[prop](string)
     formatted = link_inspector(formatted)
     formatted = highlight_inspector(formatted)
 
