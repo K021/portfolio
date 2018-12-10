@@ -2,7 +2,7 @@
 #### 할 것들
 - [gitbook](https://nachwon.gitbooks.io/soundhub/content/)
 
-## 영문 프로젝트
+## 영문으로 번역된 프로젝트
 
 - [Xenmark: a markup language for Pdxen](./xenmark-en-pub.md)
 
