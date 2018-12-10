@@ -93,7 +93,7 @@ def line_formatter(string):
             )
         return '\n'.join(formatted_list)
 
-    def border_line_formatter(string):
+    def border_line_formatter(string):  # parameter is needed
         return f'<hr class="margin4">'
 
     def unordered_list_formatter(string):
@@ -355,12 +355,6 @@ def is_unordered_list(string):
     :param string: string
     :return: string of content or None
     """
-    """
-    True: '- 순서 없는 리스트', '  -    순서 없는 리스트'
-    Necessary : 대쉬, 대쉬 후 공백
-    Allow: 대쉬 전후 공백 무제한
-    Return: '순서 있는 리스트' (공백 뒤부터 끝까지 출력된다.)
-    """
     m = PATTERN_UNORDERED_LIST.match(string)
     if m:
         return string[m.end():]
@@ -403,7 +397,7 @@ def is_two_column_list(string):
 
 def list_wrapper(line_formatted, index, line_properties):
     """
-    add <ul> or <ol> wrapper before or after <li> type html string
+    add <ul> or <ol> wrapper before or after list-type html string
     :param line_formatted: string of html type list
     :param index: index of property of line_formatted in line_properties
     :param line_properties: list of properties of each line

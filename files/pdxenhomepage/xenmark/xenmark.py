@@ -49,7 +49,7 @@ def xenmark_modularize(string):
         if value.startswith('\n'):
             module_list[index] = value[1:]
 
-    # if the given string contains '\n\n\n\n', black module is made
+    # if the given string contains '\n\n\n\n', blank module is made
     while '' in module_list:
         module_list.remove('')
 
@@ -67,7 +67,7 @@ def module_formatter(xenmark_module):
     if not isinstance(xenmark_module, str):
         raise TypeError('xenmark_module must be string')
 
-    # after a paragraph indicator, '@' multiple '\n' is allowed, and it is redundant
+    # after a paragraph indicator, '@', multiple '\n' is allowed, and it is redundant
     xenmark_module = PATTERN_REDUNDANT_NEWLINE.sub(' ', xenmark_module)
 
     lines = xenmark_module.split('\n')

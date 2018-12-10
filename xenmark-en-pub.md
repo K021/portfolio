@@ -168,7 +168,7 @@ def xenmark_modularize(string):
         if value.startswith('\n'):
             module_list[index] = value[1:]
 
-    # if the given string contains '\n\n\n\n', black module is made
+    # if the given string contains '\n\n\n\n', blank module is made
     while '' in module_list:
         module_list.remove('')
 
@@ -192,7 +192,7 @@ def module_formatter(xenmark_module):
     if not isinstance(xenmark_module, str):
         raise TypeError('xenmark_module must be string')
 
-    # after a paragraph indicator, '@' multiple '\n' is allowed, and it is redundant
+    # after a paragraph indicator, '@', multiple '\n' is allowed, and it is redundant
     xenmark_module = PATTERN_REDUNDANT_NEWLINE.sub(' ', xenmark_module)
 
     lines = xenmark_module.split('\n')
@@ -249,7 +249,7 @@ def line_property(string):
 
 ### 2. `linef.line_formatter`
 
-Recieves xenmark line string, and returns hrml line string.
+Recieves xenmark line string, and returns html line string.
 
 ```python
 def line_formatter(string):
@@ -319,7 +319,7 @@ def line_formatter(string):
     return formatted
 ```
 
-Inside this function, the following functions are called. Because, like and highlight can be in everywher like in headers and lists etc. These functions inspect the indicator of xenmark-type link and highlight, and convert it.
+Inside this function, the following functions are called. Because, link and highlight can be in everywhere like in headers and lists etc. These functions inspect the indicator of xenmark-type link and highlight, and convert it to html.
 
 ```python
 def link_inspector(line_formatted):
@@ -352,7 +352,7 @@ def highlight_inspector(line_formatted):
 
 ### 3. functions that inspect line property
 
-The following functions inspect the given string, and returns its content string.
+The following functions inspect the given string, and returns the string of its content.
 
 ```python
 def is_header_1(string):
@@ -554,12 +554,6 @@ def is_unordered_list(string):
     :param string: string
     :return: string of content or None
     """
-    """
-    True: '- 순서 없는 리스트', '  -    순서 없는 리스트'
-    Necessary : 대쉬, 대쉬 후 공백
-    Allow: 대쉬 전후 공백 무제한
-    Return: '순서 있는 리스트' (공백 뒤부터 끝까지 출력된다.)
-    """
     m = PATTERN_UNORDERED_LIST.match(string)
     if m:
         return string[m.end():]
@@ -607,7 +601,7 @@ def is_two_column_list(string):
 ```python
 def list_wrapper(line_formatted, index, line_properties):
     """
-    add <ul> or <ol> wrapper before or after <li> type html string
+    add <ul> or <ol> wrapper before or after list-type html string
     :param line_formatted: string of html type list
     :param index: index of property of line_formatted in line_properties
     :param line_properties: list of properties of each line
