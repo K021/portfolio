@@ -1,4 +1,7 @@
-reated by https://www.gitignore.io/api/macos
+Created by https://www.gitignore.io/api/macos
+
+### Custom ###
+-*.md
 
 ### macOS ###
 *.DS_Store

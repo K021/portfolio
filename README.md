@@ -13,6 +13,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 - 프로젝트 안내문: [Soundhub: 음악 오픈 프로듀싱 플랫폼](./team-project-soundhub-pub.md)
 	- English version: [Xenmark: a markup language for Pdxen](./xenmark-en-pub.md)
 - 개괄: 음악을 좋아하는 사람들이 음원을 올리고, 악기별 트랙을 쉽게 믹스할 수 있게 해주는 프로젝트. 
+- 진행 상태: 완료
 - 구현된 기능
 	1. 유저 관리
 		1. 회원가입, 로그인, 로그아웃 (소셜로그인, 이메일 인증)
@@ -29,7 +30,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 		1. 메일 보내기 (비동기 처리)
 		2. 유저, 포스트 검색
 - 사용된 기술
-	- django, aws EB, aws S3, celery, docker, postgresql 등
+	- django, aws EB, aws S3, nginx, celery, docker, postgresql 등
 
 
 ### Pdxen Homepage
@@ -38,7 +39,8 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: https://github.com/K021/pdxen-homepage (현재 private 상태가 볼 수 없습니다.)
 - 프로젝트 안내문: [(주)피디젠 홈페이지](./pdxenhomepage-pub.md)
-- 개괄: 기업과 그 서비스를 소개하고, 문의하기 기능을 통해 바이어들이 쉽게 연락할 수 있는 회사 홈페이지
+- 개괄: 기업과 그 서비스를 소개하고, 문의하기 기능을 통해 바이어들이 쉽게 연락할 수 있는 회사 홈페이지 
+- 진행 상태: 완료
 - 구현된 기능
 	1. 메인 페이지: 스타트업 느낌의 메인페이지 디자인
 	2. about, products, services 페이지를 통해 회사와 회사의 서비스 소개
@@ -48,7 +50,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 		- 마케팅 팀이 홈페이지를 관리할 필요가 있어서, 피디젠 홈페이지에 적합한 markup 언어를 만들었다. 
 	6. 모바일 반응형 페이지
 - 사용된 기술
-	- django, aws EC2, celery, docker, Bootstrap4 등
+	- django, aws EC2, nginx, celery, docker, Bootstrap4 등
 
 
 ### Instagram
@@ -57,6 +59,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: https://github.com/K021/instagram
 - 프로젝트 안내문: [사진 블로그: Instagram Project](./instagram-pj-pub.md)
+- 진행 상태: 완료
 - 구현된 기능:
 	1. 로그인, 회원가입, 소셜로그인(Facebook)
 	2. Post 와 Comment 모델의 연결
@@ -77,6 +80,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: https://github.com/K021/crawler
 - 프로젝트 안내문: [크롤러: 웹툰, 유튜브, teachable cite]()
+- 진행 상태: 진행중
 - 하위 프로젝트
 	- Naver Webtoon Crawler
 	- Youtube Crawler
@@ -90,6 +94,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: https://github.com/K021/Orange/tree/master/orange
 - 프로젝트 안내문: [Organized Random Team Generator]()
+- 진행 상태: 진행중
 
 
 ### Search Bible Online
@@ -98,6 +103,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: https://github.com/K021/SearchBibleOnline 
 - 프로젝트 안내문: [Search Bible Online]()
+- 진행 상태: 진행중
 
 
 ### 하나대투 API Python module
@@ -106,6 +112,7 @@ Backend 2명, ios 1명, Android 2명 총 5명이 작업한 프로젝트로, API 
 
 - 저장소: 아직 없음
 - 프로젝트 안내문: [하나대투 api 파이썬 모듈]()
+- 진행 상태: 진행중
 
 
 ## 사용할 수 있는 기술 스택
