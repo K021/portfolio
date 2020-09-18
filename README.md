@@ -262,7 +262,7 @@ Django 를 활용해, 성구 검색 프로그램을 웹 프로그램으로 만�
 - [Django 기초](django-basic.md)
 - [Django 빠른 개발 매뉴얼](django-onestep-manual.md)
 - [Django 심화](django-advanced.01.md)
-- [Django DateTime](python-datetime-with-django)
+- [Django DateTime](python-datetime-with-django.md)
 - [Django REST framwork](django-rest-framwork.md)
 - [Django Migration 초기값에 관하여](django-initial-data.md)
 - [Django Test 공식 문서 번역](django-test-doc-master.md)
@@ -280,7 +280,6 @@ Django 를 활용해, 성구 검색 프로그램을 웹 프로그램으로 만�
 - [Pythonic 한 코드란 무엇인가](python-pythonic-code.md)
 - [노마드코더 영상 크롤링](crawling-nomad.md)
 - [Python 강의 준비 자료](lecture-python.md)
-- [Pyenv 설정하기](pyenv-config.md)
 - [Pyenv, pip 명령어 정리](pyenv-pip-python-commands.md)
 
 ## R
@@ -298,7 +297,7 @@ Django 를 활용해, 성구 검색 프로그램을 웹 프로그램으로 만�
 - [javascript 중요 모듈 설명](js-module.md)
 - [Node.js 로 Instagram 클론하기 - 노마드코더 강의 정리](nomadcoders-instaclone-with-nodejs.md)
 
-## React 강의
+## React
 - [Instragram 클론 강의 - React - 노마드코더 강의 정리](react-nomad-insta.md)
 - [노마드 코더 리액트 강의](react-nomad.md)
 - [빠른 개발을 위한 리액트 매뉴얼](react-routine.md)
@@ -314,8 +313,8 @@ Django 를 활용해, 성구 검색 프로그램을 웹 프로그램으로 만�
 - [SASS](sass.md)
 - [소켓통신이란](socket.md)
 - [Hana 증권 API 를 이용해 실시간 증권 데이터 가져오기](stock-data-on-air.md)
-- [temp02.md](temp02.md)- [temp03.md](temp03.md)
-- [temp04.md](temp04.md)- [temp05.md](temp05.md)
+- [다양한 문제 해결 1](temp02.md)- [다양한 문제 해결 2](temp03.md)
+- [다양한 문제 해결 3](temp04.md)- [다양한 문제 해결 4](temp05.md)
 
 
 
