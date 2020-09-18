@@ -251,12 +251,73 @@ Django 를 활용해, 성구 검색 프로그램을 웹 프로그램으로 만�
 
 # 주제별 공부한 내용 정리
 
-* [git](./git-pub.md)
-* [html&css](./html-css-pub.md)
-* [javascript](./javascript-pub.md)
-* [django_basic](./django-basic-pub.md)
-* [aws_deploy](./aws-deploy-pub.md)
-* [docker](docker-pub.md)
+## AWS
+- [AWS 배포하기](./aws-deploy-pub.md)
+- [AWS EC2 로 배포하기](aws-deploy-ec2-pub.md)
+
+## Bootstrap
+- [bootstrap4](bootstrap4-pub.md)
+
+## Django
+- [Django 기초](django-basic.md)
+- [Django 빠른 개발 매뉴얼](django-onestep-manual.md)
+- [Django 심화](django-advanced.01.md)
+- [Django DateTime](python-datetime-with-django)
+- [Django REST framwork](django-rest-framwork.md)
+- [Django Migration 초기값에 관하여](django-initial-data.md)
+- [Django Test 공식 문서 번역](django-test-doc-master.md)
+- [Django Test Tools 공식 문서 번역](django-test-doc-testing-tools.md)
+- [Pytest 로 Django 테스트하기](django-test-pytest.md)
+- [Celery 를 통한 비동기 처리](celery.md)
+
+## Python
+- [Python 기초](python-basic.md)
+- [Python 심화](python-etc.md)
+- [Python 파일 처리](python-file.md)
+- [Python 으로 크롤링하기](crawler.md)
+- [Python 으로 Youtube 크롤링 하기](python-youtube.md)
+- [Python iterator](python-iter.md)
+- [Pythonic 한 코드란 무엇인가](python-pythonic-code.md)
+- [노마드코더 영상 크롤링](crawling-nomad.md)
+- [Python 강의 준비 자료](lecture-python.md)
+- [Pyenv 설정하기](pyenv-config.md)
+- [Pyenv, pip 명령어 정리](pyenv-pip-python-commands.md)
+
+## R
+- [R 기초](r.md)
+
+## Docker
+- [도커 사용하기](docker.md)
+
+## Database
+- [Database Transaction](database-transaction.md)
+
+## javascript
+- [javascript 핵심 정리](js.md)
+- [javascript 개발 환경 설정](js-dev-env-setting.md)
+- [javascript 중요 모듈 설명](js-module.md)
+- [Node.js 로 Instagram 클론하기 - 노마드코더 강의 정리](nomadcoders-instaclone-with-nodejs.md)
+
+## React 강의
+- [Instragram 클론 강의 - React - 노마드코더 강의 정리](react-nomad-insta.md)
+- [노마드 코더 리액트 강의](react-nomad.md)
+- [빠른 개발을 위한 리액트 매뉴얼](react-routine.md)
+
+## Git
+- [git](./git-pub.md)
+- [remote-repository-stale-branch-delete](remote-repository-stale-branch-delete.md)
+
+## 기타
+- [깃헙 페이지로 디벨로그 만들기](develog-with-github-pages.md)
+- [on_air_memo](on_air_memo.md)
+- [HTML & CSS](./html-css-pub.md)
+- [SASS](sass.md)
+- [소켓통신이란](socket.md)
+- [Hana 증권 API 를 이용해 실시간 증권 데이터 가져오기](stock-data-on-air.md)
+- [temp02.md](temp02.md)- [temp03.md](temp03.md)
+- [temp04.md](temp04.md)- [temp05.md](temp05.md)
+
+
 
 # 기타
 

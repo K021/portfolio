@@ -1,0 +1,35 @@
+```bash
+  system
+* 3.6.2 (set by /usr/local/var/pyenv/version)
+  3.6.2/envs/fc-dj-doc
+  3.6.2/envs/fc-dj-tutorial
+  3.6.2/envs/fc-djangogirls
+  3.6.2/envs/fc-djgirls
+  3.6.2/envs/fc-insta
+  3.6.2/envs/fc-python
+  3.6.2/envs/fc-tdd
+  3.6.2/envs/fc-test-pj
+  3.6.2/envs/testpython
+  3.6.3
+  3.6.3/envs/Orange
+  3.6.3/envs/audmix-pj
+  3.6.3/envs/fc-celery
+  3.6.3/envs/fc-ec2
+  3.6.3/envs/fc_drf_tut
+  3.6.3/envs/pdxen-homepage
+  Orange
+  audmix-pj
+  fc-celery
+  fc-dj-doc
+  fc-dj-tutorial
+  fc-djangogirls
+  fc-djgirls
+  fc-ec2
+  fc-insta
+  fc-python
+  fc-tdd
+  fc-test-pj
+  fc_drf_tut
+  pdxen-homepage
+  testpython
+```
