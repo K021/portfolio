@@ -56,6 +56,7 @@
 - 저장소: https://github.com/K021/pdxen-homepage (현재 private 상태가 볼 수 없습니다.)
 - 프로젝트 안내문: [(주)피디젠 홈페이지](./pdxenhomepage-pub.md)
  	- English version: [Xenmark: a markup language for Pdxen](./xenmark-en-pub.md)
+- 프로젝트 시연 영상: https://youtu.be/gBChshoyvEA
 - 개괄: 기업과 그 서비스를 소개하고, 문의하기 기능을 통해 바이어들이 쉽게 연락할 수 있는 회사 홈페이지 
 - 작업 시기: 2018년 2월
 - 진행 상태: 완료

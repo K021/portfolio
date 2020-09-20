@@ -6,6 +6,8 @@
 
 이 프로젝트는 (주)피디젠의 홈페이지로, 회사와 회사의 서비스를 소개하고 바이어들이 쉽게 연락할 수 있도록 하기 위한 목적을 갖고 있으며, 프로젝트 완료 후 인수인계 당시 인수자가 프로그래머가 아니라는 문제를 해결하기 위해, 홈페이지의 글을 쉽게 편집할 수 있는 mark-up 언어인 `Xenmark`를 만들었습니다. 
 
+프로젝트 시연 영상 보기: https://youtu.be/gBChshoyvEA
+
 ![](img/pdxenhomepage/mac-main-1.png)
 ![](img/pdxenhomepage/mac-main-2.png)
 ![](img/pdxenhomepage/mac-main-3.png)
