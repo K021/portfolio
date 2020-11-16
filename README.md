@@ -32,8 +32,11 @@
 현재 졸업 프로젝트로 진행하는 프로젝트로, 네이버 영화평 데이터인 NSMC 의 분석 정확도를 91% 이상으로 높이는 프로젝트입니다.
 
 - 저장소: https://drive.google.com/drive/folders/1LjOChcyCZQk5s5sk06sqRbpVIKVeB6FT?usp=sharing
-- 작업 시기: 2020년 7월 ~ 진행 중
-- 현재 성능: Electra base 모델 기반, 3 에폭 모델 기준 91.4% 정확도
+- 프로젝트 안내문: [korean-sentiment-analysis-project.pdf](korean-sentiment-analysis-project.pdf)
+- 프로젝트 포스터 : [포스터](korean-sentiment-analysis-project-poster.pdf) 
+- 프로젝트 시연 영상: https://youtu.be/GbUxVkray90
+- 작업 시기: 2020년 8월 ~ 2020년 10월 중
+- 현재 성능: Electra base 모델 기반, NSMC Task 92.73% 정확도
 - 사용된 기술: Electra, Pytorch, Python
 
 
